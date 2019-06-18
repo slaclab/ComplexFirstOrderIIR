@@ -105,6 +105,7 @@ begin
             when 14    =>
                x_re <= to_Dat( 0    );
             when 500   =>
+               report "TEST PASSED";
                run  <= false;
             when others => 
          end case;

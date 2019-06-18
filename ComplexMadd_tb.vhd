@@ -16,7 +16,7 @@ architecture Impl of ComplexMadd_tb is
 
    signal a_re: signed(DATA_WIDTH_G - 1 downto 0) := ( others => '0' );
    signal a_im: signed(DATA_WIDTH_G - 1 downto 0) := ( others => '0' );
-   signal b   : CoeffArray(0 to 3)                := ( others => (others =>'0' ) );
+   signal b   : CoeffArray(0 to 1)                := ( others => (others =>'0' ) );
    signal c_re: signed(DATA_WIDTH_G - 1 downto 0) := ( others => '0' );
    signal c_im: signed(DATA_WIDTH_G - 1 downto 0) := ( others => '0' );
    signal y_re: signed(DATA_WIDTH_G - 1 downto 0) := ( others => '0' );
@@ -49,13 +49,13 @@ begin
                rst  <= '0';
             when 11    =>
                a_im <= to_Dat( 1234 );
-               b(2) <= minus_one;
+               b(0) <= minus_one;
             when 12    =>
-               b(2) <= to_Coeff( 0 );
-               b(3) <= minus_one;
+               b(0) <= to_Coeff( 0 );
+               b(1) <= minus_one;
             when 13    =>
                a_im <= to_Dat( 0 );
-               b(3) <= to_Coeff( 0 );
+               b(1) <= to_Coeff( 0 );
             when 18    =>
                c_re <= to_Dat( 5678 );
                c_im <= to_Dat(-3210 );
@@ -94,10 +94,8 @@ begin
          rst           => rst,
          a_re          => a_re,
          a_im          => a_im,
-         b_rr          => b(0),
-         b_ri          => b(1),
-         b_ir          => b(2),
-         b_ii          => b(3),
+         b_re          => b(0),
+         b_im          => b(1),
          c_re          => c_re,
          c_im          => c_im,
          y_re          => y_re,

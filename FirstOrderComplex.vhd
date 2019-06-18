@@ -36,7 +36,8 @@ use     work.CoeffPkg.all;
 
 entity FirstOrderComplex is
    generic (
-      DATA_WIDTH_G : natural := 25
+      DATA_WIDTH_G : natural := 25;
+      DSP_ADDER_G  : boolean := true
    );
    port (
       clk      : in  std_logic;
@@ -70,6 +71,16 @@ architecture Impl of FirstOrderComplex is
    -- cycles (one less than 4 - 1);
    signal xn_re, xn_im   : SignalArray(1 downto 0);
    signal fir_re, fir_im : signed(DATA_WIDTH_G downto 0);
+
+   function b2yn(cond : boolean) return string is
+   begin
+      if ( cond ) then return "YES"; else return "NO"; end if;
+   end function b2yn;
+
+   attribute USE_DSP48 : string;
+
+   attribute USE_DSP48 of fir_re : signal is b2yn( DSP_ADDER_G );
+   attribute USE_DSP48 of fir_im : signal is b2yn( DSP_ADDER_G );
 
 begin
 
